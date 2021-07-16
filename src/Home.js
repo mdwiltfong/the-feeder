@@ -16,7 +16,7 @@ function Home () {
   useEffect(() => {
     const getRecipes = async () => {
       const resp = await fetch (
-        `https://api.edamam.com/search?q=${query}&app_id=${API_ID}&app_key=${API_KEY}`);
+        `https://shielded-garden-47685.herokuapp.com/https://api.edamam.com/search?q=${query}&app_id=${API_ID}&app_key=${API_KEY}`);
       const data = await resp.json();
       setRecipes(data.hits);
     };
