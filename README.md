@@ -10,10 +10,10 @@ A web application that allows users to search for recipes based on ingredients, 
 ## Tech Stack:
 - Backend: 
 Node.js
+
 - Frontend: 
 React
-- Libraries:
-BeauitfulSoup
+
 - API/Website Used for Scrapping: 
 https://api.edaman.com
 
