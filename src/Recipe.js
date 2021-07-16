@@ -1,7 +1,7 @@
 import React from 'react';
 import './Recipe.css' 
 
-function Recipe ({ title, image, calories, ingredients, source }) {
+function Recipe ({ index, title, image, calories, ingredients, source }) {
 
   return(
     <div className="Recipe">
@@ -11,8 +11,8 @@ function Recipe ({ title, image, calories, ingredients, source }) {
           <p>{parseInt(calories/6)} Calories Per Serving</p>
     
             <ul className="ingredients">
-              {ingredients.map(ingredient => (
-                <li><small>{ingredient.text}</small></li>
+              {ingredients.map((ingredient) => (
+                <li key={index}><small>{ingredient.text}</small></li>
               ))}
             </ul>
     
