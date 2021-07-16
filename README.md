@@ -1,4 +1,32 @@
-# Getting Started with Create React App
+# Capstone 2 - The Feeder
+
+A Recipe Directory Built from the Edaman Recipe Search API 
+
+See App on Heroku: https://the-feeder-app.herokuapp.com/
+
+## Overview: 
+A web application that allows users to search for recipes based on ingredients, diet, health restrictions, and more 
+
+## Tech Stack:
+- Backend: 
+Node.js
+- Frontend: 
+React
+- Libraries:
+BeauitfulSoup
+- API/Website Used for Scrapping: 
+https://api.edaman.com
+
+## App Features Include:
+- Searching for recipes using keywords, i.e. vegan, low-calorie, chicken, etc.
+- Redirects users to the full recipe based on the url source of each recipe rendered.
+
+## The Feeder App
+
+- The Feeder App - Main page:
+![Alt text](/src/app_shot.png?raw=true "App Homepage")
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
