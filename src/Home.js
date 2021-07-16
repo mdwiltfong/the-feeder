@@ -16,8 +16,7 @@ function Home () {
   useEffect(() => {
     const getRecipes = async () => {
       const resp = await fetch (
-        `https://api.edamam.com/search?q=${query}&app_id=${API_ID}&app_key=${API_KEY}`,
-        {mode: "same-origin"});
+        `https://api.edamam.com/search?q=${query}&app_id=${API_ID}&app_key=${API_KEY}`);
       const data = await resp.json();
       setRecipes(data.hits);
     };
