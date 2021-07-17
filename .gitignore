@@ -23,9 +23,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/OLD
-/NAN
 yarn.lock
 package-lock.json
 
+NAN
 
