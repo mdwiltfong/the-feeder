@@ -9,15 +9,6 @@ CREATE TABLE users (
   profile_pic_url TEXT NOT NULL
 );
 
-CREATE TABLE recipes (
-  id SERIAL PRIMARY KEY,
-  title TEXT NOT NULL,
-  calories INTEGER CHECK (calories >= 0),
-  image TEXT NOT NULL,
-  ingredients TEXT NOT NULL,
-  source TEXT NOT NULL
-);
-
 CREATE TABLE favorites (
   username VARCHAR(25)
     REFERENCES users ON DELETE CASCADE,
