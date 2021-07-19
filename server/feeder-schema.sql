@@ -12,7 +12,6 @@ CREATE TABLE users (
 CREATE TABLE favorites (
   username VARCHAR(25)
     REFERENCES users ON DELETE CASCADE,
-  recipe_id INTEGER
-    REFERENCES recipes ON DELETE CASCADE,
+  recipe_id INTEGER,
   PRIMARY KEY (username, recipe_id)
 );
