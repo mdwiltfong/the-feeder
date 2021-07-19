@@ -11,8 +11,17 @@ const {
 
 const { BCRYPT_WORK_FACTOR } = require('../config');
 
+/** Related Functions for Users. */
+
 class User {
 
+  /** Authenticate
+   * 
+   * Function: Authenticate user w/ username & pasword
+   * Returns: { username, first_name, last_name, email, is_admin, profile_pic_url }
+   * 
+   * Throws UnautorizedError if user is not found or invalid password.
+   */
   static async authenticate(username, password) {
     const res = await db.query(
           `SELECT username,
@@ -30,6 +39,7 @@ class User {
     const user = res.rows[0];
 
     if(user) {
+      // Compare hashed password to a new hash from password.
       const isValid = await bcrypt.compare(password, user.password);
       if(isValid === true) {
         delete user.password;
@@ -39,6 +49,13 @@ class User {
     throw new UnauthorizedError("Invalid username/password.")
   }
 
+  /** Register
+   * 
+   * Function: Register user with data.
+   * Return: { username, firstName, lastName, email, isAdmin }
+   * 
+   * Throws BadRequestError on duplicate registrations.
+   */
   static async register(
     { username, password, firstName, lastName, email, isAdmin, profilePicUrl }) {
     const duplicateCheck = await db.query(
@@ -80,6 +97,13 @@ class User {
     return user;
   }
 
+  /** Get All
+   * 
+   * Function: Retrieves all users' data.
+   * Returns: [{ username, first_name, last_name, email, is_admin }, ...]
+   * 
+   */
+
   static async getAll() {
     const res = await db.query(
           `SELECT username,
@@ -93,6 +117,14 @@ class User {
     );
     return res.rows;
   }
+
+  /** Get User
+   * 
+   * Function: Retrives a single user's data.
+   * Return: { username, first_name, last_name, email, is_admin, profile_pic_url }
+   * 
+   * Throws NotFoundError if user is not found.
+   */
 
   static async getUser(username) {
     const userRes = await db.query(
@@ -121,6 +153,19 @@ class User {
     return user;
   }
 
+  /** Update
+   * 
+   * Function: Updates user profile with `data`; primarily for "specific update"
+   * will only change provided fields, which can include firstName, lastName, password,
+   * email, and admin status
+   * Return: { username, firstName, lastName, email, isAdmin }
+   * 
+   * Throws NotFoundError if not found.
+   * 
+   * WARNING: this function can set a new password or make a user an admin.
+   * Callers of this function must be certain they have validated inputs to this
+   * or a serious security risks are opened.
+   */
   static async update(username, data) {
     if (data.password) {
       data.password = await bcrypt.hash(data.password, BCRYPT_WORK_FACTOR)
@@ -154,6 +199,14 @@ class User {
     return user;
   };
 
+  /** Delete
+   * 
+   * Function: Deletes a given users from database
+   * Return: undefined
+   * 
+   * Throw NotFound Error if user is not found.
+   */
+
   static async delete(username) {
     let res = await db.query(
         `DELETE
@@ -166,6 +219,14 @@ class User {
 
     if(!user) throw new NotFoundError(`No user: ${username}`)
   };
+
+  /** Favorite 
+   * 
+   * Function: Favorite a recipe
+   * Return: undefined
+   * 
+   * Throws NotFoundError if no recipe is found.
+   */
 
   static async makeFavorite(username, recipeId) {
     const preCheck = await db.query(
@@ -190,19 +251,19 @@ class User {
         [recipeId, username]);
   }
 
-  static async getFavorites(username) {
-    const recipeRes = await db.query(
-          `SELECT recipe_id as "recipeId",
-                  username
-           FROM favorites
-           WHERE username = $1`, [username]);
+  // static async getFavorites(username) {
+  //   const recipeRes = await db.query(
+  //         `SELECT recipe_id as "recipeId",
+  //                 username
+  //          FROM favorites
+  //          WHERE username = $1`, [username]);
       
-    const recipes = recipeRes.rows[0];
+  //   const recipes = recipeRes.rows[0];
 
-    if(!recipes) throw new NotFoundError(`No Favorites for: ${username}`)
+  //   if(!recipes) throw new NotFoundError(`No Favorites for: ${username}`)
 
-    return recipes;
-  };
+  //   return recipes;
+  // };
 }
 
 module.exports = User;

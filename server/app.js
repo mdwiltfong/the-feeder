@@ -1,6 +1,7 @@
 "use strict";
 
 /** Express App for The Feeder App */
+
 const express = require('express');
 const morgan = require("morgan");
 const cors = require('cors');
@@ -10,6 +11,7 @@ const { NotFoundError } = require("./expressError");
 const { authenticateJWT } = require("./middleware/auth");
 const authRoutes = require("./routes/auth");
 const usersRoutes = require("./routes/users");
+const recipesRoutes = require("./routes/recipes");
 
 const app = express();
 
@@ -20,6 +22,7 @@ app.use(authenticateJWT);
 
 app.use("/auth", authRoutes);
 app.use("/users", usersRoutes);
+app.use("/recipes", recipesRoutes);
 
 /** Handle 404 errors -- this matches everything */
 app.use(function (req, res, next) {
