@@ -29,7 +29,7 @@ function RecipeSearch () {
           {recipes && recipes.map((recipe, index) => (
             <Recipe
               className="recipe"
-              key={index}
+              key={recipe.recipe.uri}
               title={recipe.recipe.label}
               calories={recipe.recipe.calories}
               image={recipe.recipe.image}
